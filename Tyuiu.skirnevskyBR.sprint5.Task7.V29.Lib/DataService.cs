@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using tyuiu.cources.programming.interfaces.Sprint5;
 namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Lib
 {
@@ -9,27 +10,29 @@ namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Lib
             string tempPath = Path.GetTempPath();
             string pathSaveFile = Path.Combine(tempPath, "OutPutDataFileTask7V29.txt");
 
+
             if (File.Exists(pathSaveFile))
             {
                 File.Delete(pathSaveFile);
             }
 
-            string strLine = "";
+            StringBuilder resultBuilder = new StringBuilder();
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path, Encoding.Default))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    strLine = "";
+                    StringBuilder lineBuilder = new StringBuilder();
+
 
                     for (int i = 0; i < line.Length; i++)
                     {
                         char currentChar = line[i];
 
+
                         if (char.IsDigit(currentChar))
                         {
-
 
                             bool isStartOfLine = (i == 0);
                             bool isEndOfLine = (i == line.Length - 1);
@@ -38,21 +41,25 @@ namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Lib
 
                             if (prevIsDigit || nextIsDigit)
                             {
-                                strLine += currentChar;
+                                lineBuilder.Append(currentChar);
                             }
 
                         }
                         else
                         {
 
-                            strLine += currentChar;
+                            lineBuilder.Append(currentChar);
                         }
                     }
-                    File.AppendAllText(pathSaveFile, strLine + Environment.NewLine);
+
+                    string processedLine = lineBuilder.ToString();
+                    resultBuilder.Append(processedLine);
+
+                    File.AppendAllText(pathSaveFile, processedLine + Environment.NewLine);
                 }
             }
 
-            return pathSaveFile;
+            return resultBuilder.ToString().TrimEnd();
         }
     }
 }
