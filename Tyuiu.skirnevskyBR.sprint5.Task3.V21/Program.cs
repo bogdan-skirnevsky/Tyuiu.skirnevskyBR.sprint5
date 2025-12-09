@@ -34,7 +34,7 @@ internal class Program
 
         string res = ds.SaveToFileTextData(x);
 
-        // Для отображения результата читаем из бинарного файла
+
         double resultValue;
         using (BinaryReader reader = new BinaryReader(File.Open(res, FileMode.Open)))
         {
