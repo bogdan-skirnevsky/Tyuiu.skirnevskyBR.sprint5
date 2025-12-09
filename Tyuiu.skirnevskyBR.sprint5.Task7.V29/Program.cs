@@ -7,7 +7,6 @@ class Program
         DataService ds = new DataService();
 
         Console.Title = "Спринт #5 | Выполнил: Скирневский Б.Р. | ИБКСб-25-1";
-
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* Спринт #5                                                               *");
         Console.WriteLine("* Тема: Обработка текстовых файлов                                        *");

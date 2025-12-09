@@ -48,7 +48,6 @@ namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Lib
                             strLine += currentChar;
                         }
                     }
-
                     File.AppendAllText(pathSaveFile, strLine + Environment.NewLine);
                 }
             }

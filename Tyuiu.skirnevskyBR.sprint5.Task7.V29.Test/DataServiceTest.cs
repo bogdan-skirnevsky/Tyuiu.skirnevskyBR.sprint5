@@ -8,6 +8,7 @@ namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Test
         [TestMethod]
         public void CheckedExistsFile()
         {
+
             string path = @"C:\DataSprint5\InPutDataFileTask7V29.txt";
 
             FileInfo fileInfo = new FileInfo(path);
