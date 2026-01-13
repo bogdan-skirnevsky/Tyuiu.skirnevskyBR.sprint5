@@ -7,59 +7,40 @@ namespace Tyuiu.skirnevskyBR.sprint5.Task7.V29.Lib
     {
         public string LoadDataAndSave(string path)
         {
-            string tempPath = Path.GetTempPath();
-            string pathSaveFile = Path.Combine(tempPath, "OutPutDataFileTask7V29.txt");
-
-
-            if (File.Exists(pathSaveFile))
-            {
-                File.Delete(pathSaveFile);
-            }
-
-            StringBuilder resultBuilder = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
             using (StreamReader reader = new StreamReader(path, Encoding.Default))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                string text = reader.ReadToEnd();
+
+                for (int i = 0; i < text.Length; i++)
                 {
-                    StringBuilder lineBuilder = new StringBuilder();
+                    char current = text[i];
 
-
-                    for (int i = 0; i < line.Length; i++)
+                    if (char.IsDigit(current))
                     {
-                        char currentChar = line[i];
 
+                        bool prevIsDigit = (i > 0 && char.IsDigit(text[i - 1]));
+                        bool nextIsDigit = (i < text.Length - 1 && char.IsDigit(text[i + 1]));
 
-                        if (char.IsDigit(currentChar))
+                        if (prevIsDigit || nextIsDigit)
                         {
 
-                            bool isStartOfLine = (i == 0);
-                            bool isEndOfLine = (i == line.Length - 1);
-                            bool prevIsDigit = (!isStartOfLine && char.IsDigit(line[i - 1]));
-                            bool nextIsDigit = (!isEndOfLine && char.IsDigit(line[i + 1]));
-
-                            if (prevIsDigit || nextIsDigit)
-                            {
-                                lineBuilder.Append(currentChar);
-                            }
-
+                            result.Append(current);
                         }
-                        else
-                        {
 
-                            lineBuilder.Append(currentChar);
-                        }
                     }
-
-                    string processedLine = lineBuilder.ToString();
-                    resultBuilder.Append(processedLine);
-
-                    File.AppendAllText(pathSaveFile, processedLine + Environment.NewLine);
+                    else
+                    {
+                        result.Append(current);
+                    }
                 }
             }
 
-            return resultBuilder.ToString().TrimEnd();
+            string finalResult = result.ToString();
+            finalResult = finalResult.Replace("  ", " ");
+
+            return finalResult.Trim();
         }
     }
 }
